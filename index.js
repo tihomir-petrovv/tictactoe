@@ -16,6 +16,14 @@ resetButton.addEventListener("click", () => {
 });
 
 addNamesButton.addEventListener("click", () => {
+  resetGame();
+  if (
+    document.querySelector("#playerName").value === "" ||
+    document.querySelector("#playerName2").value === ""
+  ) {
+    alert("Please enter player names");
+    return;
+  }
   players[0] = document.querySelector("#playerName").value;
   players[1] = document.querySelector("#playerName2").value;
   currPlayerField.textContent = `Current Player: ${
@@ -32,7 +40,13 @@ fields.forEach((field, index) => {
       field.textContent = currentPlayer;
       currentPlayer = currentPlayer === "X" ? "O" : "X";
       currPlayerField.textContent = `Current Player: ${
-        currentPlayer === "X" ? players.length > 0 ? players[0] : "X" : players.length > 1 ? players[1] : "O"
+        currentPlayer === "X"
+          ? players.length > 0
+            ? players[0]
+            : "X"
+          : players.length > 1
+          ? players[1]
+          : "O"
       }`;
 
       const winningPlayer = checkWinner();
@@ -88,14 +102,20 @@ function resetGame() {
   winner.textContent = "";
   currentPlayer = "X";
   currPlayerField.textContent = `Current Player: ${currentPlayer}`;
+  playerXWins = 0;
+  playerOWins = 0;
 }
 
 function storePlayerWins(user) {
   if (user === "X") {
     playerXWins++;
-    winningPlayers[0].textContent = `Player ${players.length > 0 ? players[0] : "X"} Wins: ${playerXWins}`;
+    winningPlayers[0].textContent = `Player ${
+      players.length > 0 ? players[0] : "X"
+    } Wins: ${playerXWins}`;
   } else if (user === "O") {
     playerOWins++;
-    winningPlayers[1].textContent = `Player ${players.length > 0 ? players[1] : "O"} Wins: ${playerOWins}`;
+    winningPlayers[1].textContent = `Player ${
+      players.length > 0 ? players[1] : "O"
+    } Wins: ${playerOWins}`;
   }
 }
